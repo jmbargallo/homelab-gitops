@@ -1,0 +1,12 @@
+namespace: hello
+resources:
+  - ../../base
+
+patches:
+  - target:
+      kind: Deployment
+      name: hello-nginx
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 2
