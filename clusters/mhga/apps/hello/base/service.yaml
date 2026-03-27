@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: hello-nginx
 spec:
+  type: LoadBalancer
   selector:
     app: hello-nginx
   ports:
