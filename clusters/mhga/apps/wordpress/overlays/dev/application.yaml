@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: wordpress
+    repoURL: oci://registry-1.docker.io/bitnamicharts/wordpress
     targetRevision: 27.0.0
+    path: .
     helm:
       values: |
         service:
@@ -31,7 +31,6 @@ spec:
         wordpressPassword: admin123
         wordpressEmail: admin@lab.local
         wordpressBlogName: Mi Blog
-
   destination:
     server: https://kubernetes.default.svc
     namespace: wordpress
