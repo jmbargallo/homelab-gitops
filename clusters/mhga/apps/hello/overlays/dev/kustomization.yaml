@@ -1,7 +1,7 @@
 namespace: hello
 resources:
   - ../../base
-
+  - ingress.yaml
 patches:
   - target:
       kind: Deployment
