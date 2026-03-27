@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wordpress-dev
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
+    chart: wordpress
+    targetRevision: 18.1.12
+    helm:
+      values: |
+        service:
+          type: LoadBalancer
+          loadBalancerIP: 192.168.1.245
+
+        persistence:
+          enabled: true
+          storageClass: local-path
+          size: 5Gi
+
+        mariadb:
+          primary:
+            persistence:
+              enabled: true
+              storageClass: local-path
+              size: 5Gi
+
+        wordpressUsername: admin
+        wordpressPassword: admin123
+        wordpressEmail: admin@lab.local
+        wordpressBlogName: Mi Blog
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: wordpress
+  syncPolicy:
+    automated:
+      enabled: true
+    syncOptions:
+      - CreateNamespace=true
