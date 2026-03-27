@@ -3,18 +3,12 @@ kind: Application
 metadata:
   name: longhorn-dev
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/sync-options: ServerSideApply=true
 spec:
   project: default
   source:
-    repoURL: https://charts.longhorn.io
-    chart: longhorn
-    targetRevision: 1.6.2
-    helm:
-      values: |
-        defaultSettings:
-          defaultDataPath: /var/lib/longhorn
+    repoURL: https://github.com/longhorn/longhorn
+    targetRevision: v1.6.2
+    path: deploy/longhorn
   destination:
     server: https://kubernetes.default.svc
     namespace: longhorn-system
@@ -23,4 +17,3 @@ spec:
       enabled: true
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true
